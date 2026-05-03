@@ -42,59 +42,69 @@ import { useEffect, useState } from "react"
 // //   )
 // // }
 // // export default App
-
+// ##################################################################################################################################
 
 // import { useState } from "react";
-import Greeting from "./Greeting";
+// import Greeting from "./Greeting";
 
-function App() {
-  const [Users,setUsers]=useState([])
-  const [Error,setError]=useState(null)
-  const [Loading,setLoading]=useState(true)
+// function App() {
+//   const [name,setname]=useState("")
+//   const [Users,setUsers]=useState([])
+//   const [Error,setError]=useState(null)
+//   const [Loading,setLoading]=useState(true)
+//   const [sub,setsub]=useState(false)
+ 
   
-useEffect(()=>{
- const timer= setTimeout(() => {
+// useEffect(()=>{
+//  const timer= setTimeout(() => {
     
-  const fetchdata=async()=>{
-try{const res=await fetch("https://jsonplaceholder.typicode.com/users");
+//   const fetchdata=async()=>{
+// try{const res=await fetch("https://jsonplaceholder.typicode.com/users");
     
-if (!res.ok){
-  throw new Error("failed to fetch")
-}
-    const dta=await res.json()
-    setUsers(dta)
+// if (!res.ok){
+//   throw new Error("failed to fetch")
+// }
+//     const dta=await res.json()
+//     setUsers(dta)
 
-  }
+//   }
 
-  catch(err){
-    setError(err.message)
-  }finally{
-    setLoading(false)
-  }};
-  fetchdata();
-  }, 2000);
+//   catch(e){
+//     setError(e.message)
+//   }finally{
+//     setLoading(false)
+//   }};
+//   fetchdata();
+//   }, 2000);
 
-return ()=>{clearTimeout(timer)}
+// return ()=>{clearTimeout(timer)}
 
 
+// },[])
 
-},[])
-  return (
-    <>
-    {Error&&  <p>Error</p>}
-    {Loading && <p>loading</p>}
-      {Users.map((user) => (
-        <Greeting 
-          key={user.id}   
-          name={user.name}
-          id={user.id}
-        />
-      ))}
-    </>
-  );
-}
 
-export default App;
+// const userfilter=Users.filter((d)=>{return d.name.toLowerCase().includes(name.toLocaleLowerCase())})
+//   return (
+//     <>
+//     <input type="text" name="" id="" value={name} placeholder="Enter name u want" onChange={(e)=>setname(e.target.value)}/>
+//     <button onClick={()=>setsub(true)}>Submit</button>
+//     <p>{sub && userfilter.length}</p>
+//     {Error&&  <p>Error</p>}
+//     {Loading && <p>loading</p>}
+//       {sub && userfilter.map((user) => (
+        
+//         <Greeting 
+//           key={user.id}   
+//           name={user.name}
+//           id={user.id}
+//         />
+//       ))}
+//     </>
+//   );
+// }
+
+// export default App;
+// #################################################################################################
 // function App(){
 //   const[inp,setinp]=useState("")
 //   const handleclick=(value)=>{
@@ -146,3 +156,26 @@ export default App;
 //   )
 // }
 // export default App
+//########################################################################
+function App(){
+  const [msg,setmsg]=useState([])
+  const [singlemsg,setsinglemsg]=useState("")
+  const handle=()=>{
+    setmsg([...msg,singlemsg])
+  setsinglemsg("")
+  
+  }
+  const hadnledelete=(index)=>{
+    setmsg(msg.filter((m,i)=>{return i!==index}))
+  }
+  return(
+    <>
+    <input type="text" name="" id=""  placeholder="Enter your task" value={singlemsg} onChange={(e)=>{setsinglemsg(e.target.value)}}/>
+     <button onClick={handle}>add</button>
+    {msg.map((m,index)=>{
+      return <div><p key={index}>{m}</p> <button onClick={()=>  hadnledelete(index)}>delete</button></div>
+    })}
+    </>
+  )
+}
+export default App
