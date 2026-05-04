@@ -160,6 +160,10 @@ import { useEffect, useState } from "react"
 function App(){
   const [msg,setmsg]=useState([])
   const [singlemsg,setsinglemsg]=useState("")
+  const [loading,setLoading]=useState(true)
+  setInterval(() => {
+    setLoading(false)
+  }, 10000);
   const handle=()=>{
     setmsg([...msg,singlemsg])
   setsinglemsg("")
@@ -170,9 +174,11 @@ function App(){
   }
   return(
     <>
+
+{loading && <p>Loading</p>  }
     <input type="text" name="" id=""  placeholder="Enter your task" value={singlemsg} onChange={(e)=>{setsinglemsg(e.target.value)}}/>
      <button onClick={handle}>add</button>
-    {msg.map((m,index)=>{
+    {!loading && msg.map((m,index)=>{
       return <div><p key={index}>{m}</p> <button onClick={()=>  hadnledelete(index)}>delete</button></div>
     })}
     </>
